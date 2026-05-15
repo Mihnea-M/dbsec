@@ -1,0 +1,57 @@
+db.teachers.aggregate([
+  {
+    $lookup: {
+      from: 'classes',
+      let: { teacherId: '$_id' },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $eq: ['$teacherId', '$$teacherId']
+            }
+          }
+        },
+        {
+          $lookup: {
+            from: 'enrollments',
+            let: { classId: '$_id' },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $eq: ['$classId', '$$classId']
+                  }
+                }
+              }
+            ],
+            as: 'enrollments'
+          }
+        },
+        {
+          $addFields: {
+            enrolledStudents: {
+              $size: '$enrollments'
+            }
+          }
+        },
+        {
+          $project: {
+            title: 1,
+            enrolledStudents: 1
+          }
+        }
+      ],
+      as: 'classes'
+    }
+  },
+  {
+    $addFields: {
+      classCount: {
+        $size: '$classes'
+      },
+      totalStudents: {
+        $sum: '$classes.enrolledStudents'
+      }
+    }
+  }
+])

@@ -1,0 +1,26 @@
+services:
+  mongodb:
+    image: mongo:8
+    container_name: mongodb-tls
+
+    command:
+      - mongod
+      - --bind_ip_all
+      - --tlsMode
+      - requireTLS
+      - --tlsCertificateKeyFile
+      - /certs/server.pem
+      - --tlsCAFile
+      - /certs/ca.crt
+
+    ports:
+      - "27017:27017"
+
+    volumes:
+      - ./certs:/certs:ro
+      - mongodb-data:/data/db
+
+    restart: unless-stopped
+
+volumes:
+  mongodb-data:

@@ -1,0 +1,18 @@
+db.students.aggregate([
+  {
+    $lookup: {
+      from: 'enrollments',
+      let: { currentStudentId: '$_id' },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $eq: ['$studentId', '$$currentStudentId']
+            }
+          }
+        }
+      ],
+      as: 'enrollments'
+    }
+  }
+])

@@ -1,0 +1,18 @@
+db.teachers.aggregate([
+  {
+    $lookup: {
+      from: 'classes',
+      let: { teacherId: '$_id' },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $eq: ['$teacherId', '$$teacherId']
+            }
+          }
+        }
+      ],
+      as: 'classes'
+    }
+  }
+])

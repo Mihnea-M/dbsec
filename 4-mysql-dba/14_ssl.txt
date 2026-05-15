@@ -1,0 +1,3 @@
+CREATE USER 'ssl_user'@'localhost' REQUIRE X509;
+
+mysql -ussluser --ssl-key client-key.pem -p -D testdb -psslpass --ssl-cert client-cert.pem --ssl-ca ca.pem 

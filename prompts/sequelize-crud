@@ -1,0 +1,69 @@
+i've modified the definition as below.
+
+const Restaurant = sequelize.define('Restaurant', {
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  openingHour: {
+    type: DataTypes.TIME,
+    allowNull: false
+  },
+  closingHour: {
+    type: DataTypes.TIME,
+    allowNull: false
+  }
+})
+
+const Location = sequelize.define('Location', {
+  street: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  number: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  city: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+})
+
+const Menu = sequelize.define('Menu', {
+  description: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+})
+
+const MenuItem = sequelize.define('MenuItem', {
+  description: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  price: {
+    type: DataTypes.FLOAT,
+    allowNull: false
+  }
+})
+
+// Define the associations
+Restaurant.hasMany(Location)
+Location.belongsTo(Restaurant)
+
+Restaurant.hasOne(Menu)
+Menu.belongsTo(Restaurant)
+
+Menu.belongsToMany(MenuItem, { through: 'MenuItemMapping' })
+MenuItem.belongsToMany(Menu, { through: 'MenuItemMapping' })
+
+given the updated definition, write the sequelize code to:
+- add two Restaurants
+- modify the name of the first Restaurant
+- add a location to each of the Restaurants above
+- add a menu to each Restaurant
+- add two items to each menu; the items should be different
+- add an item to which is included in both menus
+- add a third location to the first restaurant and then delete it
+use try catch to handle errors and use async/await

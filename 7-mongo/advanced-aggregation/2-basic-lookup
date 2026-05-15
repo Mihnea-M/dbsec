@@ -1,0 +1,28 @@
+db.classes.aggregate([
+  {
+    $lookup: {
+      from: 'teachers',
+      let: { teacherIdFromClass: '$teacherId' },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $eq: ['$_id', '$$teacherIdFromClass']
+            }
+          }
+        },
+        {
+          $project: {
+            _id: 0,
+            name: 1,
+            department: 1
+          }
+        }
+      ],
+      as: 'teacher'
+    }
+  },
+  {
+    $unwind: '$teacher'
+  }
+])

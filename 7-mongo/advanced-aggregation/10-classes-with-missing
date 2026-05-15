@@ -1,0 +1,40 @@
+db.assignments.aggregate([
+  {
+    $lookup: {
+      from: 'enrollments',
+      let: { classId: '$classId' },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $eq: ['$classId', '$$classId']
+            }
+          }
+        },
+        {
+          $lookup: {
+            from: 'submissions',
+            let: {
+              studentId: '$studentId',
+              assignmentId: '$$ROOT._id'
+            },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $and: [
+                      { $eq: ['$studentId', '$$studentId'] },
+                      { $eq: ['$assignmentId', '$$assignmentId'] }
+                    ]
+                  }
+                }
+              }
+            ],
+            as: 'submission'
+          }
+        }
+      ],
+      as: 'studentSubmissionStatus'
+    }
+  }
+])

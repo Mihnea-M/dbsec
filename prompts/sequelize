@@ -1,0 +1,8 @@
+Create a data model using sequelize based on the following:
+- A restaurant is an entity which has a name an opening hour and a closing hour
+- A location has a street, a number and a city
+- A restaurant has many location
+- A menu has a description
+- A restaurant has one menu
+- A menu item has a description and a price
+- A menu has many menu items and a menu item has many menus

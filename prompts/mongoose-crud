@@ -1,0 +1,41 @@
+Create a data model using mongoose based on the following:
+- A restaurant is an entity which has:
+   - a name
+   - an opening hour
+   - a closing hour
+   - an array of object ids for locations
+   - an object id for a menu
+- A location has:
+    - a street
+    - a number
+    - a city
+- A menu has
+    - a description
+    - an array of object ids for a menu items
+- A menu item has
+    - a description
+    - a price
+
+
+based on the above schema:
+- add two Restaurants
+- modify the name of the first Restaurant
+- add a location to each of the Restaurants above
+- add a menu to each Restaurant
+- add two items to each menu; the items should be different
+- add an item to which is included in both menus
+- add a third location to the first restaurant and then delete it
+use try catch to handle errors and use async/await
+
+based on the above schema:
+- add two Restaurants
+use async/await and try-catch to handle errors; assume top level await is available
+
+using the same as the above, modify the name of the first restaurant
+then add a location to each Restaurant
+add a menu to each restaurabnt
+
+using the same as the above
+- add two items to each menu; the items should be different
+- add an item to which is included in both menus
+- add a third location to the first restaurant and then delete it

@@ -1,0 +1,44 @@
+db.students.aggregate([
+  {
+    $lookup: {
+      from: 'enrollments',
+      let: { studentId: '$_id' },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $eq: ['$studentId', '$$studentId']
+            }
+          }
+        },
+        {
+          $lookup: {
+            from: 'classes',
+            let: { classId: '$classId' },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $eq: ['$_id', '$$classId']
+                  }
+                }
+              },
+              {
+                $project: {
+                  title: 1,
+                  year: 1,
+                  teacherId: 1
+                }
+              }
+            ],
+            as: 'class'
+          }
+        },
+        {
+          $unwind: '$class'
+        }
+      ],
+      as: 'enrollments'
+    }
+  }
+])

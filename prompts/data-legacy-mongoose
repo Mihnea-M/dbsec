@@ -1,0 +1,7 @@
+I want you to write a simple data legacy system with mongoose. we are versioning an entity called Resource, which has one field, a string called content.
+Additionally, we have an entity called User. The user of the current session is known (it can be harcoded)
+When an insert is perfomed on Resource, the id of the creating user is stored.
+When an update is performed on Resource, the previous version is stored in a ResourceVersions collection. The version information contains the previous version, the operation performed and a reference to the performing user.
+When a delete is performed on resource, the previous version is maintained in ResourceVersions, similar to the implementation for update.
+Preferably use mongoose hooks. The user id should be made available inside the hook.
+Use async/await and assume top level await is supported.

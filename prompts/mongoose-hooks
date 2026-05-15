@@ -1,0 +1,7 @@
+given the entity secrets with the fields
+- encryptedContent
+
+do the following:
+- define the entity in mongoose
+- add a hook to write in encryptedContent the value of provided to insert after encryption with a known key
+- add a hook to decrypt the value when find is attempted

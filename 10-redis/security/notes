@@ -1,0 +1,18 @@
+# set password in redis.conf or config
+config set requirepass welcome123
+
+# authenticate as default user
+auth default welcome123
+# create user someone
+acl setuser someone
+# list their rights
+acl list
+# as default, add all rights on tests for someone as well as a password
+acl setuser someone on >somepass ~tests:* +@all
+# auth as someone
+auth someone somepass
+# permitted op
+set tests:1 somevalue
+# forbidden op
+set xxx:1 somevalue
+

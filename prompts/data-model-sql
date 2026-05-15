@@ -1,0 +1,10 @@
+We need to construct a data model for a simple testing application.
+There are two kinds of users, student and teacher.
+A teacher can create a test for a subject (i.e. mathematics). The subjects are stored in a separate table.
+A test has a specific time interval in which it is available.
+A test contains a series of questions.
+The questions can be of three types: single choice, multiple choice and free answer (a small essay)
+Each single choice question has answers, which can be marked correct or incorrect
+Each multiple choice question has answers, which can be marked correct or incorrect
+A student can take the test and provide a test submission
+A test submission contains answers to the questions

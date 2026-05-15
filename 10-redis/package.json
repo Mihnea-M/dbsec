@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "dependencies": {
+    "redis": "^4.6.6",
+    "uuid": "^9.0.0"
+  }
+}

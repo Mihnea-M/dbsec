@@ -1,0 +1,159 @@
+services: 
+  mongo1:
+    network_mode: bridge
+    hostname: mongo1
+    container_name: mongo1
+    image: mongo:latest
+    ports:
+      - 60021:27018 
+    volumes:
+      - mongo1-volume:/home/container-data
+    restart: always
+    command: >
+      sh -c "
+            chown -R mongodb: /home/container-data &&
+            mongod     --shardsvr --replSet replica-set-0 --dbpath /home/container-data --bind_ip 0.0.0.0"
+  mongo2:
+    network_mode: bridge
+    hostname: mongo2
+    container_name: mongo2
+    image: mongo:latest
+    ports:
+      - 60022:27018
+    volumes:
+      - mongo2-volume:/home/container-data
+    restart: always
+    command: >
+      sh -c "
+            chown -R mongodb: /home/container-data && 
+            mongod --shardsvr --replSet replica-set-0 --dbpath /home/container-data --bind_ip 0.0.0.0"
+  mongo3:
+    network_mode: bridge
+    hostname: mongo3
+    container_name: mongo3
+    image: mongo:latest
+    ports:
+      - 60023:27018
+    volumes:
+      - mongo3-volume:/home/container-data
+    restart: always
+    command: >
+      sh -c "
+            chown -R mongodb: /home/container-data &&
+            mongod --shardsvr --replSet replica-set-0 --dbpath /home/container-data --bind_ip 0.0.0.0"
+  mongo4:
+    network_mode: bridge
+    hostname: mongo4 
+    container_name: mongo4
+    image: mongo:latest
+    ports:
+      - 60024:27018 
+    volumes:
+      - mongo4-volume:/home/container-data
+    restart: always
+    command: >
+      sh -c "
+            chown -R mongodb: /home/container-data &&
+            mongod --shardsvr --replSet replica-set-1 --dbpath /home/container-data --bind_ip 0.0.0.0"
+  mongo5:
+    network_mode: bridge
+    hostname: mongo5
+    container_name: mongo5
+    image: mongo:latest
+    ports:
+      - 60025:27018
+    volumes:
+      - mongo5-volume:/home/container-data
+    restart: always
+    command: >
+      sh -c "
+            chown -R mongodb: /home/container-data &&
+            mongod     --shardsvr --replSet replica-set-1 --dbpath /home/container-data --bind_ip 0.0.0.0"
+  mongo6:
+    network_mode: bridge
+    hostname: mongo6
+    container_name: mongo6
+    image: mongo:latest
+    ports:
+      - 60026:27018
+    volumes:
+      - mongo6-volume:/home/container-data
+    restart: always
+    command: >
+      sh -c "
+            chown -R mongodb: /home/container-data &&
+            mongod     --shardsvr --replSet replica-set-1 --dbpath /home/container-data --bind_ip 0.0.0.0"
+  mongo-config1:
+    network_mode: bridge
+    hostname: mongo-config1
+    container_name: mongo-config1
+    image: mongo:latest
+    ports:
+      - 60027:27019
+    volumes:
+      - mongo-config1-volume:/home/container-data    
+    restart: always
+    command: >
+      sh -c "
+            chown -R mongodb: /home/container-data &&
+            mongod     --replSet config-replica-set --dbpath /home/container-data --configsvr --bind_ip 0.0.0.0"
+  mongo-config2:
+    network_mode: bridge
+    hostname: mongo-config2
+    container_name: mongo-config2
+    image: mongo:latest
+    ports:
+      - 60028:27019
+    volumes:
+      - mongo-config2-volume:/home/container-data
+    restart: always
+    command: >
+      sh -c "
+            chown -R mongodb: /home/container-data &&
+            mongod     --replSet config-replica-set --dbpath /home/container-data --configsvr --bind_ip 0.0.0.0"
+  mongo-config3:
+    network_mode: bridge
+    hostname: mongo-config3
+    container_name: mongo-config3
+    image: mongo:latest
+    ports:
+      - 60029:27019
+    volumes:
+      - mongo-config3-volume:/home/container-data
+    restart: always
+    command: >
+      sh -c "
+            chown -R mongodb: /home/container-data &&
+            mongod     --replSet config-replica-set --dbpath /home/container-data --configsvr --bind_ip 0.0.0.0"
+  mongos-router:
+    network_mode: bridge
+    hostname: mongos-router
+    container_name: mongos-router
+    image: mongo:latest
+    ports:
+      - 60030:27017
+    volumes:
+      - mongos-router-volume:/home/container-data
+    restart: always
+    command: mongos --configdb config-replica-set/mongo-config1:27019,mongo-config2:27019,mongo-config3:27019 --bind_ip 0.0.0.0
+volumes:
+  mongo1-volume:
+    external: true
+  mongo2-volume:
+    external: true
+  mongo3-volume:
+    external: true
+  mongo4-volume:
+    external: true
+  mongo5-volume:
+    external: true
+  mongo6-volume:
+    external: true
+  mongo-config1-volume:
+    external: true
+  mongo-config2-volume:
+    external: true
+  mongo-config3-volume:
+    external: true
+  mongos-router-volume:
+    external: true

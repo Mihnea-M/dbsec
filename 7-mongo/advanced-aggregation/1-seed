@@ -1,0 +1,50 @@
+use school_demo
+
+db.students.drop()
+db.teachers.drop()
+db.classes.drop()
+db.enrollments.drop()
+db.assignments.drop()
+db.submissions.drop()
+
+db.students.insertMany([
+  { _id: 1, name: 'Ana Popescu', year: 1, group: 'A' },
+  { _id: 2, name: 'Mihai Ionescu', year: 1, group: 'A' },
+  { _id: 3, name: 'Ioana Marin', year: 2, group: 'B' },
+  { _id: 4, name: 'Vlad Georgescu', year: 2, group: 'B' }
+])
+
+db.teachers.insertMany([
+  { _id: 101, name: 'Dr. Radu Stan', department: 'Computer Science' },
+  { _id: 102, name: 'Dr. Elena Matei', department: 'Mathematics' }
+])
+
+db.classes.insertMany([
+  { _id: 201, title: 'Databases', teacherId: 101, year: 1 },
+  { _id: 202, title: 'Algorithms', teacherId: 101, year: 1 },
+  { _id: 203, title: 'Statistics', teacherId: 102, year: 2 }
+])
+
+db.enrollments.insertMany([
+  { _id: 301, studentId: 1, classId: 201 },
+  { _id: 302, studentId: 1, classId: 202 },
+  { _id: 303, studentId: 2, classId: 201 },
+  { _id: 304, studentId: 3, classId: 203 },
+  { _id: 305, studentId: 4, classId: 203 }
+])
+
+db.assignments.insertMany([
+  { _id: 401, classId: 201, title: 'SQL basics', maxPoints: 100 },
+  { _id: 402, classId: 201, title: 'Aggregation intro', maxPoints: 100 },
+  { _id: 403, classId: 202, title: 'Sorting algorithms', maxPoints: 100 },
+  { _id: 404, classId: 203, title: 'Descriptive statistics', maxPoints: 100 }
+])
+
+db.submissions.insertMany([
+  { _id: 501, studentId: 1, assignmentId: 401, points: 90 },
+  { _id: 502, studentId: 1, assignmentId: 402, points: 85 },
+  { _id: 503, studentId: 2, assignmentId: 401, points: 70 },
+  { _id: 504, studentId: 2, assignmentId: 402, points: 75 },
+  { _id: 505, studentId: 1, assignmentId: 403, points: 95 },
+  { _id: 506, studentId: 3, assignmentId: 404, points: 88 }
+])

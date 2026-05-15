@@ -1,0 +1,15 @@
+CREATE (a:Person {name: 'Alice', age: 30});
+CREATE (b:Person {name: 'Bob', age: 25});
+CREATE (c:Person {name: 'Charlie', age: 35});
+CREATE (d:Person {name: 'Diana', age: 28});
+CREATE (e:Person {name: 'Eve', age: 22});
+
+MATCH (a:Person {name: 'Alice'}), (b:Person {name: 'Bob'})
+CREATE (a)-[:KNOWS]->(b);
+
+MATCH (a:Person)-[r:KNOWS]->(b:Person)
+RETURN a.name, r, b.name;
+
+MATCH (p:Person)
+WHERE p.age > 26
+RETURN p.name, p.age;

@@ -1,0 +1,75 @@
+db.students.aggregate([
+  {
+    $lookup: {
+      from: 'submissions',
+      let: { studentId: '$_id' },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $eq: ['$studentId', '$$studentId']
+            }
+          }
+        },
+        {
+          $lookup: {
+            from: 'assignments',
+            let: { assignmentId: '$assignmentId' },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $eq: ['$_id', '$$assignmentId']
+                  }
+                }
+              }
+            ],
+            as: 'assignment'
+          }
+        },
+        {
+          $unwind: '$assignment'
+        },
+        {
+          $group: {
+            _id: '$assignment.classId',
+            averagePoints: {
+              $avg: '$points'
+            },
+            submissions: {
+              $sum: 1
+            }
+          }
+        },
+        {
+          $lookup: {
+            from: 'classes',
+            let: { classId: '$_id' },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $eq: ['$_id', '$$classId']
+                  }
+                }
+              }
+            ],
+            as: 'class'
+          }
+        },
+        {
+          $unwind: '$class'
+        },
+        {
+          $project: {
+            _id: 0,
+            class: '$class.title',
+            averagePoints: 1,
+            submissions: 1
+          }
+        }
+      ],
+      as: 'performance'
+    }
+  }
+])

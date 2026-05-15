@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "dependencies": {
+    "mongoose": "^7.1.0",
+    "mysql2": "^3.3.3",
+    "redis": "^4.6.6",
+    "sequelize": "^6.31.1"
+  }
+}

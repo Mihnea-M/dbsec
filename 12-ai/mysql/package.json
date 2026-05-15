@@ -1,0 +1,11 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@faker-js/faker": "^9.8.0",
+    "@tensorflow/tfjs": "4.10.0",
+    "@tensorflow/tfjs-core": "4.10.0",
+    "@tensorflow/tfjs-node": "4.10.0",
+    "@vlasky/zongji": "^0.5.9",
+    "mysql2": "^3.9.2"
+  }
+}

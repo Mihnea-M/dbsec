@@ -1,0 +1,10 @@
+grant select on role_examples.only_read to 'webapp'@'%';
+grant all privileges on role_examples.read_write1 to 'webapp'@'%';
+grant insert on role_examples.read_write1 to 'webapp'@'%';
+
+grant 'webapp'@'%' to 'user1'@'localhost';
+
+-- as user
+set role 'webapp'@'%';
+
+
